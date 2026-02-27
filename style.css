@@ -1,0 +1,313 @@
+:root {
+    --bg: #0a0a12;
+    --bg-card: #0f0f1e;
+    --bg-board: #080810;
+    --text: #e4e4ef;
+    --text-dim: #6e6e8e;
+    --text-muted: #3a3a5a;
+    --accent: #8b5cf6;
+    --accent-glow: #a78bfa;
+    --border: #1c1c38;
+    --grid-line: #111125;
+
+    /* Piece colors */
+    --piece-I: #06b6d4;
+    --piece-O: #eab308;
+    --piece-T: #a855f7;
+    --piece-S: #22c55e;
+    --piece-Z: #ef4444;
+    --piece-J: #3b82f6;
+    --piece-L: #f97316;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 20px 20px 8px;
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent-glow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: var(--accent-glow);
+    font-weight: 300;
+}
+
+/* Game layout */
+.game-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Side panels */
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 140px;
+    flex-shrink: 0;
+}
+
+.panel-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.panel-box h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+}
+
+.panel-box canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+.model-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-glow);
+}
+
+.model-ctx {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+
+.score-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+}
+
+.score-value.small {
+    font-size: 1.2rem;
+}
+
+.stat-detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+/* Controls info */
+.controls-info {
+    text-align: left;
+}
+
+.control-row {
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+kbd {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 4px;
+    min-width: 18px;
+    text-align: center;
+    color: var(--accent-glow);
+}
+
+/* Game center */
+.game-center {
+    flex-shrink: 0;
+}
+
+.board-wrapper {
+    position: relative;
+    background: var(--bg-board);
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    line-height: 0;
+}
+
+#board-canvas {
+    display: block;
+}
+
+/* Overlay */
+.game-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 8, 16, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
+
+.overlay-content {
+    text-align: center;
+    padding: 30px;
+}
+
+.overlay-content h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-glow);
+    margin-bottom: 6px;
+}
+
+.overlay-content p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    padding: 10px 32px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.btn-primary:hover {
+    background: #7c3aed;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+}
+
+/* Mobile controls */
+.mobile-controls {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px 20px;
+}
+
+.mobile-row {
+    display: flex;
+    gap: 8px;
+}
+
+.mobile-btn {
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.mobile-btn.wide {
+    width: 120px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.mobile-btn:active {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Hidden */
+.hidden { display: none !important; }
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+footer p { color: var(--text-dim); font-size: 0.72rem; margin-bottom: 4px; }
+.footer-note { font-size: 0.65rem !important; opacity: 0.5; }
+
+/* Line clear flash */
+@keyframes lineClear {
+    0% { background: rgba(139, 92, 246, 0.3); }
+    50% { background: rgba(139, 92, 246, 0.6); }
+    100% { background: transparent; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .game-layout { gap: 8px; padding: 8px 8px; }
+    .side-panel { width: 90px; }
+    .panel-box { padding: 6px; }
+    .panel-box h3 { font-size: 0.5rem; }
+    .score-value { font-size: 1.2rem; }
+    .score-value.small { font-size: 0.95rem; }
+    .controls-info { display: none; }
+    .mobile-controls { display: flex; }
+    header { padding: 12px 12px 4px; }
+}
+
+@media (max-width: 480px) {
+    .left-panel { display: none; }
+    .game-layout { gap: 6px; }
+    .side-panel { width: 70px; }
+    .panel-box canvas { width: 60px !important; height: auto !important; }
+}

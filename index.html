@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Tetris — Pack the Context Window</title>
+    <meta name="description" content="Tetris meets LLM context windows. Pack tokens into the context window — how efficiently can you use 128K tokens?">
+    <meta name="keywords" content="context window, LLM tokens, tetris game, AI game, context tetris">
+    <meta property="og:title" content="Context Tetris — Pack the Context Window">
+    <meta property="og:description" content="A Tetris-style game themed around LLM context windows. Fit documents, code, and chats into the context window.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🧱 Context Tetris</h1>
+        <p class="subtitle">Pack the Context Window</p>
+    </header>
+
+    <main class="game-layout">
+        <!-- Left panel: Hold + Info -->
+        <aside class="side-panel left-panel">
+            <div class="panel-box">
+                <h3>HOLD</h3>
+                <canvas id="hold-canvas" width="120" height="100"></canvas>
+            </div>
+            <div class="panel-box model-info">
+                <h3>MODEL</h3>
+                <div class="model-name" id="model-name">GPT-3.5</div>
+                <div class="model-ctx" id="model-ctx">4K context</div>
+            </div>
+            <div class="panel-box controls-info">
+                <h3>CONTROLS</h3>
+                <div class="control-row"><kbd>←</kbd><kbd>→</kbd> Move</div>
+                <div class="control-row"><kbd>↓</kbd> Soft drop</div>
+                <div class="control-row"><kbd>Space</kbd> Hard drop</div>
+                <div class="control-row"><kbd>↑</kbd><kbd>Z</kbd> Rotate</div>
+                <div class="control-row"><kbd>C</kbd> Hold</div>
+                <div class="control-row"><kbd>P</kbd> Pause</div>
+            </div>
+        </aside>
+
+        <!-- Center: Game board -->
+        <div class="game-center">
+            <div class="board-wrapper">
+                <canvas id="board-canvas"></canvas>
+                <div class="game-overlay hidden" id="game-overlay">
+                    <div class="overlay-content" id="overlay-content">
+                        <h2 id="overlay-title">CONTEXT TETRIS</h2>
+                        <p id="overlay-subtitle">Pack tokens into the context window</p>
+                        <button class="btn-primary" id="btn-start">Start Game</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right panel: Next + Score -->
+        <aside class="side-panel right-panel">
+            <div class="panel-box">
+                <h3>NEXT</h3>
+                <canvas id="next-canvas" width="120" height="280"></canvas>
+            </div>
+            <div class="panel-box score-box">
+                <h3>TOKENS</h3>
+                <div class="score-value" id="score-value">0</div>
+            </div>
+            <div class="panel-box">
+                <h3>LINES</h3>
+                <div class="score-value small" id="lines-value">0</div>
+            </div>
+            <div class="panel-box">
+                <h3>LEVEL</h3>
+                <div class="score-value small" id="level-value">1</div>
+            </div>
+            <div class="panel-box">
+                <h3>SPEED</h3>
+                <div class="stat-detail" id="speed-value">1.0x</div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Mobile controls -->
+    <div class="mobile-controls" id="mobile-controls">
+        <div class="mobile-row">
+            <button class="mobile-btn" data-action="rotate">↻</button>
+        </div>
+        <div class="mobile-row">
+            <button class="mobile-btn" data-action="left">←</button>
+            <button class="mobile-btn" data-action="down">↓</button>
+            <button class="mobile-btn" data-action="right">→</button>
+        </div>
+        <div class="mobile-row">
+            <button class="mobile-btn wide" data-action="drop">DROP</button>
+            <button class="mobile-btn" data-action="hold">HOLD</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Each piece is a chunk of content — pack them efficiently into the context window</p>
+        <p class="footer-note">Built with Canvas · Part of the AI Ecosystem Tools portfolio</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
